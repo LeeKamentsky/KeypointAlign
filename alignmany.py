@@ -11,6 +11,10 @@ import subprocess
 if __name__ == '__main__':
     in_path = sys.argv[1]
     out_path = sys.argv[2]
+    if len(sys.argv) > 3:
+        algorithm = sys.argv[3]
+    else:
+        algorithm = "SURF"
     
     d = {}
     for root, dirnames, filenames in os.walk(in_path):
@@ -30,4 +34,4 @@ if __name__ == '__main__':
             if not os.path.isdir(out_folder):
                 os.makedirs(out_folder)
             pathout = os.path.join(out_folder, "%d_%d.tif" % (f1, f2))
-            subprocess.check_call([sys.executable, "align.py", path1, path2, pathout])
+            subprocess.check_call([sys.executable, "align.py", "--algorithm=%s" % algorithm, path1, path2, pathout])
